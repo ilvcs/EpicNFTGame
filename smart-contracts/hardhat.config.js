@@ -1,5 +1,8 @@
+
 require('@nomiclabs/hardhat-waffle')
-require('dotenv').config();
+
+require("dotenv").config()
+const {ALCHEMY_API_URL,  PRIVATE_KEY } = process.env;
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
@@ -20,10 +23,10 @@ module.exports = {
   solidity: '0.8.1',
   networks: {
     rinkeby: {
-      url: process.env.ALCHEMY_URL,
-      accounts: [process.env.PRIVATE_KEY],
+      url: ALCHEMY_API_URL,
+      accounts: [PRIVATE_KEY],
     },
   },
 }
 
-// Rinkby contract address : 0x38435745Fc0fb734F862A5e4Fe2C30c47CdF3E4b
+// Rinkby contract address : 0xF87EA159647F8BE73FFf9AA180e515E18cc44112
