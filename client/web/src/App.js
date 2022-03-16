@@ -4,6 +4,7 @@ import SelectCharacter from './Components/SelectCharacter'
 import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 import EpicGame from './utils/EpicGame.json';
 import { ethers } from 'ethers';
+import Arena from './Components/Arena'
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
     fetchNFTMetadata()
   }
   }, [currentAccount])
+  
 
   const checkWalletIsConnected = async() => {
     try {
@@ -93,30 +95,33 @@ const App = () => {
     }
   }
 
+ 
   const renderContent = () => {
-    if(!currentAccount){
-      return(
-        <div className="connect-wallet-container">
-        <img
-          src="https://64.media.tumblr.com/tumblr_mbia5vdmRd1r1mkubo1_500.gifv"
-          alt="Monty Python Gif"
-        />
 
-         {/*
-         * Button that we will use to trigger wallet connect
-         */}
-        <button
-          className="cta-button connect-wallet-button"
-          onClick={connectWalletAction}
-        >
-          Connect Wallet To Kill the Boss
-        </button>
-      </div>
-      )
-    }else if (currentAccount && !characterNFT){
-      return <SelectCharacter setCharactorNFT={setCharacterNFT}/>
+    if (!currentAccount) {
+      return (
+        <div className="connect-wallet-container">
+          <img
+            src="https://64.media.tumblr.com/tumblr_mbia5vdmRd1r1mkubo1_500.gifv"
+            alt="Monty Python Gif"
+          />
+          <button
+            className="cta-button connect-wallet-button"
+            onClick={connectWalletAction}
+          >
+            Connect Wallet To Get Started
+          </button>
+        </div>
+      );
+    } else if (currentAccount && !characterNFT) {
+      return <SelectCharacter setCharacterNFT={setCharacterNFT} />;	
+    /*
+    * If there is a connected wallet and characterNFT, it's time to battle!
+    */
+    } else if (currentAccount && characterNFT) {
+      return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT}/>;
     }
-  }
+  }; 
   return (
     <div className="App">
       <div className="container">
